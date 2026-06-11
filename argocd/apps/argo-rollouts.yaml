@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root
+  name: argo-rollouts
   namespace: argocd
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/khanh030106/gitops.git
-    targetRevision: fix-manifest
-    path: argocd/apps
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-rollouts
+    targetRevision: 2.37.7
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: argo-rollouts
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
