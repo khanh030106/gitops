@@ -1,3 +1,4 @@
+apiVersion: argoproj.io/v1alpha1
 kind: Rollout            # argoproj.io/v1alpha1
 metadata: { name: api, namespace: demo, labels: { app: api } }
 spec:
