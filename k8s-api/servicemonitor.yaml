@@ -1,5 +1,12 @@
 apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor       # Prometheus scrape /metrics
+kind: ServiceMonitor 
+
+metadata:
+  name: api
+  namespace: demo
+  labels:
+    release: kube-prometheus-stack
+      # Prometheus scrape /metrics
 spec:
   selector: { matchLabels: { app: api } }
   endpoints: [ { port: http, path: /metrics, interval: 15s } ]
