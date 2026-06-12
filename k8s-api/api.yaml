@@ -24,9 +24,9 @@ spec:
               containerPort: 8080
           env:
             - name: ERROR_RATE
-              value: "0"
+              value: "1"
             - name: VERSION
-              value: "v2"
+              value: "slo-alert-test"
           readinessProbe:
             httpGet:
               path: /healthz
@@ -36,12 +36,18 @@ spec:
     canary:
       steps:
         - setWeight: 25
+        - pause: {}
         - analysis:
             templates:
               - templateName: api-success-rate
         - setWeight: 50
-        - pause:
-            duration: 30s
+        - analysis:
+            templates:
+              - templateName: api-success-rate
+        - setWeight: 75
+        - analysis:
+            templates:
+              - templateName: api-success-rate
         - setWeight: 100
 
 ---
